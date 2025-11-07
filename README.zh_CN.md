@@ -1,3 +1,4 @@
+[English](readme.md)
 # UWP 安装包提取工具（GUI）
 
 此程序为开源工具 WSAppBak（https://github.com/Wapitiii/WSAppBak ）的 GUI 版本，提供图形界面用于枚举已安装的 UWP 应用并打包/签名为 .appx/.msix。

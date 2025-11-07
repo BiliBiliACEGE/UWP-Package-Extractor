@@ -1,3 +1,4 @@
+[中文](README.zh_CN.md)
 # UWP Package Extractor (GUI)
 
 This project is a GUI wrapper for the open-source WSAppBak tool: https://github.com/Wapitiii/WSAppBak
