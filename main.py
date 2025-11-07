@@ -3,8 +3,9 @@ from datetime import datetime
 from dataclasses import dataclass
 from typing import List
 import locale
+import check_locales
 
-# 新增：本地化支持与管理
+# 本地化支持与管理
 LOCALES_DIR = pathlib.Path(__file__).parent / "locales"
 
 def load_texts(lang: str = None) -> dict:
@@ -89,7 +90,7 @@ class Localization(QObject):
             res.append(p.stem)
         return res
 
-    # 新增：返回某语言的友好显示名（优先查找 language_name_{code}, language_display, language_name）
+    # 返回某语言的友好显示名（优先查找 language_name_{code}, language_display, language_name）
     def display_name_for(self, code: str) -> str:
         try:
             path = LOCALES_DIR / f"{code}.json"
@@ -106,7 +107,7 @@ class Localization(QObject):
             pass
         return code
 
-    # 新增：返回 code->display 字典
+    # 返回 code->display 字典
     def display_names(self) -> dict:
         names = {}
         for code in self.available():
@@ -127,7 +128,7 @@ class UwpItem:
     install_path: str
     is_selected: bool = False
 
-# 新增：解析 ms-resource 引用到友好名称（从 Strings/*.resw 等资源文件中查找）
+# 解析 ms-resource 引用到友好名称（从 Strings/*.resw 等资源文件中查找）
 def resolve_ms_resource(raw_name: str, install_path: str) -> str:
     try:
         if not raw_name:
@@ -591,7 +592,7 @@ class SettingsInterface(QWidget):
         self.skipCheck.setToolTip(t("skip_tooltip"))
         lay.addWidget(self.skipCheck)
 
-        # 新增：语言选择下拉（显示友好名称，itemData 存语言代码）
+        # 语言选择下拉（显示友好名称，itemData 存语言代码）
         h_lang = QHBoxLayout()
         h_lang_lbl = QLabel(t("language_label") if TEXTS.get("language_label") else "Language")
         self.langCombo = QComboBox()
@@ -612,7 +613,7 @@ class SettingsInterface(QWidget):
         # 订阅全局语言变更，更新界面文本
         LOC.languageChanged.connect(self.retranslate_ui)
 
-    # 新增：填充下拉并选中当前语言
+    # 填充下拉并选中当前语言
     def _populate_lang_combo(self):
         self.langCombo.blockSignals(True)
         self.langCombo.clear()
